@@ -1,13 +1,13 @@
 {
   "main.css": "/fred-im/static/css/main.eafa6462.chunk.css",
-  "main.js": "/fred-im/static/js/main.c634c78f.chunk.js",
-  "main.js.map": "/fred-im/static/js/main.c634c78f.chunk.js.map",
+  "main.js": "/fred-im/static/js/main.5fb81f31.chunk.js",
+  "main.js.map": "/fred-im/static/js/main.5fb81f31.chunk.js.map",
   "static/js/1.ad4591f8.chunk.js": "/fred-im/static/js/1.ad4591f8.chunk.js",
   "static/js/1.ad4591f8.chunk.js.map": "/fred-im/static/js/1.ad4591f8.chunk.js.map",
   "runtime~main.js": "/fred-im/static/js/runtime~main.318babfa.js",
   "runtime~main.js.map": "/fred-im/static/js/runtime~main.318babfa.js.map",
   "static/css/main.eafa6462.chunk.css.map": "/fred-im/static/css/main.eafa6462.chunk.css.map",
   "index.html": "/fred-im/index.html",
-  "precache-manifest.6665bf70ddcb453930752dd215e501a2.js": "/fred-im/precache-manifest.6665bf70ddcb453930752dd215e501a2.js",
+  "precache-manifest.cdacfaa888a93d564e95f03056dbad59.js": "/fred-im/precache-manifest.cdacfaa888a93d564e95f03056dbad59.js",
   "service-worker.js": "/fred-im/service-worker.js"
 }
