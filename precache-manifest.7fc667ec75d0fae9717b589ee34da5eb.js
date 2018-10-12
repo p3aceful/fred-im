@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/fred-im/static/js/runtime~main.318babfa.js"
   },
   {
-    "revision": "0b95f24c3ff623c6eb9f",
-    "url": "/fred-im/static/js/main.0b95f24c.chunk.js"
+    "revision": "284e7a1448efd554e738",
+    "url": "/fred-im/static/js/main.284e7a14.chunk.js"
   },
   {
     "revision": "ad4591f84e9b761fa829",
     "url": "/fred-im/static/js/1.ad4591f8.chunk.js"
   },
   {
-    "revision": "0b95f24c3ff623c6eb9f",
+    "revision": "284e7a1448efd554e738",
     "url": "/fred-im/static/css/main.eafa6462.chunk.css"
   },
   {
-    "revision": "9beb41f2498589dc1f76813966105e7a",
+    "revision": "1fdce4a6b4c5f736492c0313044a6b70",
     "url": "/fred-im/index.html"
   }
 ];
