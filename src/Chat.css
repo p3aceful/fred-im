@@ -1,0 +1,12 @@
+.messages, .users {
+    border: 1px red dotted;
+    overflow-y: scroll;
+}
+
+.f-90 {
+    height: 90vh;
+}
+
+.f-10 {
+    height: 10vh;
+}
