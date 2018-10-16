@@ -1,13 +1,13 @@
 {
-  "main.css": "/fred-im/static/css/main.eafa6462.chunk.css",
-  "main.js": "/fred-im/static/js/main.14a03e76.chunk.js",
-  "main.js.map": "/fred-im/static/js/main.14a03e76.chunk.js.map",
-  "static/js/1.ad4591f8.chunk.js": "/fred-im/static/js/1.ad4591f8.chunk.js",
-  "static/js/1.ad4591f8.chunk.js.map": "/fred-im/static/js/1.ad4591f8.chunk.js.map",
-  "runtime~main.js": "/fred-im/static/js/runtime~main.318babfa.js",
-  "runtime~main.js.map": "/fred-im/static/js/runtime~main.318babfa.js.map",
-  "static/css/main.eafa6462.chunk.css.map": "/fred-im/static/css/main.eafa6462.chunk.css.map",
-  "index.html": "/fred-im/index.html",
-  "precache-manifest.81f0c0c00bfb607a7fe4b180b9f07857.js": "/fred-im/precache-manifest.81f0c0c00bfb607a7fe4b180b9f07857.js",
-  "service-worker.js": "/fred-im/service-worker.js"
+  "main.css": "/freddIm/static/css/main.eafa6462.chunk.css",
+  "main.js": "/freddIm/static/js/main.09b3d177.chunk.js",
+  "main.js.map": "/freddIm/static/js/main.09b3d177.chunk.js.map",
+  "static/js/1.ad4591f8.chunk.js": "/freddIm/static/js/1.ad4591f8.chunk.js",
+  "static/js/1.ad4591f8.chunk.js.map": "/freddIm/static/js/1.ad4591f8.chunk.js.map",
+  "runtime~main.js": "/freddIm/static/js/runtime~main.6553b70f.js",
+  "runtime~main.js.map": "/freddIm/static/js/runtime~main.6553b70f.js.map",
+  "static/css/main.eafa6462.chunk.css.map": "/freddIm/static/css/main.eafa6462.chunk.css.map",
+  "index.html": "/freddIm/index.html",
+  "precache-manifest.42a61346d2a2df953a4cfddb3740442f.js": "/freddIm/precache-manifest.42a61346d2a2df953a4cfddb3740442f.js",
+  "service-worker.js": "/freddIm/service-worker.js"
 }
