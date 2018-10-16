@@ -6,7 +6,7 @@ class Chat extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: '', messages: [] };
+        this.state = { value: '', messages: [], users: [] };
         this.connectionManager = null;
 
         this.handleChange = this.handleChange.bind(this);
@@ -16,12 +16,13 @@ class Chat extends Component {
 
     componentDidMount() {
         this.connectionManager = new ConnectionManager(this);
-        this.connectionManager.connect('ws://fred-im.herokuapp.com');
+        this.connectionManager.connect('wss://fred-im.herokuapp.com');
+        // this.connectionManager.connect('ws://localhost:9876');
         this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
     }
 
     sendMessage(e) {
-        
+        e.preventDefault();
         this.send({
             type: 'chat',
             message: this.state.value,
@@ -43,24 +44,43 @@ class Chat extends Component {
     }
 
     appendMessage(user, message) {
-        const messages = this.state.messages;
+        const messages = JSON.parse(JSON.stringify(this.state.messages));
         messages.push(`${user}: ${message}`);
         this.setState({ messages });
+        this.scrollToBottom();
+    }
+
+    updateUserList(users) {
+        this.setState({ users });
+    }
+
+    scrollToBottom() {
+        const scrollHeight = this.messageList.scrollHeight;
+        const height = this.messageList.clientHeight;
+        const maxScrollTop = scrollHeight - height;
+        this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
     }
 
     render() {
 
         const msgs = this.state.messages.map((msg, i) => <li key={i} className="list-group-item">{msg}</li>);
-
+        const activeUsers = this.state.users.map(user => <li key={user}>{user}</li>)
         return (
             <div className="container-fluid f-90">
                 <div className="row f-90">
-                    <div className="col-9 f-90 messages">
+                    <div 
+                        className="col-9 f-90 messages"
+                        ref={div => {
+                            this.messageList = div;
+                        }}
+                    >
                         <ul className="list-group">
                             {msgs}
                         </ul>
                     </div>
-                    <div className="col-3 f-90 users">Active Users</div>
+                    <div className="col-3 f-90 users">Active Users:
+                        {activeUsers}
+                    </div>
                 </div>
                 <div className="col f-10">
 
@@ -69,38 +89,16 @@ class Chat extends Component {
                             <div className="input-group">
                                 <input type="text" placeholder="Message..." onChange={this.handleChange} className="form-control" value={this.state.value}/>
                                 <div className="input-group-append">
-                                    <button className="btn" type="button" id="button-addon2">Send</button>
+                                    <button className="btn" type="submit" id="button-addon2">Send</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         );
     }
 
 }
-
-// class Events {
-//     constructor() {
-//         this._listeners = new Set;
-//     }
-
-//     listen(name, callback) {
-//         this._listeners.add({
-//             name,
-//             callback
-//         });
-//     }
-
-//     emit(name, ...data) {
-//         this._listeners.forEach(listener => {
-//             if (listener.name === name) {
-//                 listener.callback(...data);
-//             }
-//         });
-//     }
-// }
 
 export default Chat;

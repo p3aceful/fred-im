@@ -31,6 +31,16 @@ class ConnectionManager {
         if (data.type === 'chat') {
             this.chat.appendMessage(data.sender, data.message);
         }
+        else if (data.type === 'server-broadcast') {
+            const users = [];
+            users.push(data.peers.you);
+            data.peers.clients.forEach(client => {
+                if (client.id !== data.peers.you) {
+                    users.push(client.id);
+                }
+            });
+            this.chat.updateUserList(users);
+        }
         else if (data.type === 'pong') {
             console.log('Ping pong successful.');
         }

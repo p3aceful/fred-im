@@ -7,10 +7,7 @@
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.4"
   },
-  "homepage" : "http://p3aceful.github.io/fred-im",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -24,8 +21,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "gh-pages": "^2.0.1"
-  }
+  ]
 }
