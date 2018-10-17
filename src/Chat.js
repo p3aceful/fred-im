@@ -16,8 +16,8 @@ class Chat extends Component {
 
     componentDidMount() {
         this.connectionManager = new ConnectionManager(this);
-        this.connectionManager.connect('wss://fred-im.herokuapp.com');
-        // this.connectionManager.connect('ws://localhost:9876');
+        // this.connectionManager.connect('wss://fred-im.herokuapp.com');
+        this.connectionManager.connect('ws://localhost:9876');
         this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
     }
 
@@ -45,6 +45,7 @@ class Chat extends Component {
 
     appendMessage(user, message) {
         const messages = JSON.parse(JSON.stringify(this.state.messages));
+
         messages.push(`${user}: ${message}`);
         this.setState({ messages });
         this.scrollToBottom();

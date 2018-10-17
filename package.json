@@ -7,7 +7,7 @@
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.4"
   },
-  "homepage" : "https://p3aceful.github.io/fred-im",
+  "homepage": "https://p3aceful.github.io/fred-im",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
