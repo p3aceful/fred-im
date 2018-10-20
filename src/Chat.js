@@ -18,8 +18,8 @@ class Chat extends Component {
 
     componentDidMount() {
         this.connectionManager = new ConnectionManager(this);
-        this.connectionManager.connect('wss://fred-im.herokuapp.com');
-        // this.connectionManager.connect('ws://localhost:9876');
+        // this.connectionManager.connect('wss://fred-im.herokuapp.com');
+        this.connectionManager.connect('ws://localhost:9876');
         this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
     }
 
@@ -48,7 +48,21 @@ class Chat extends Component {
     addMessage(user, message) {
         const messages = JSON.parse(JSON.stringify(this.state.messages));
 
-        messages.push({ user, message });
+        const last = messages.pop();
+
+        console.log(last)
+        if (last === undefined) {
+            messages.push({ user, message: [message] });
+        }
+        else if (last.user !== user) {
+            messages.push(last);
+            messages.push({ user, message: [message] });
+        }
+        else { // Last message has same user as this
+            last.message.push(message);
+            messages.push(last);
+        }
+        
         this.setState({ messages });
         this.scrollToBottom();
     }
@@ -74,14 +88,15 @@ class Chat extends Component {
                 </div>
             );
         });
-        const activeUsers = this.state.users.map(user => {
-            // <li key={user}>{user}</li>
-            return (<div className="media" >
-                        <img className="imagedoge image-small" src={logo} alt="Doge"></img>
-                        <div className="media-body">
-                            <h5 className="mt-2">{user}</h5>
-                        </div>
-                    </div>);
+        const activeUsers = this.state.users.map((user, index) => {
+            return (
+                <div className="media" key={index}>
+                    <img className="imagedoge image-small" src={logo} alt="Doge"></img>
+                    <div className="media-body">
+                        <h5 className="mt-2">{user}</h5>
+                    </div>
+                </div>
+            );
         });
         return (
             <div className="container-fluid h-100">
@@ -130,7 +145,7 @@ function Media(props) {
             <img className="imagedoge" src={logo} alt="Doge"></img>
             <div className="media-body">
                 <h5 className={props.mt}>{props.user}</h5>
-                {props.message}
+                {props.message.map((msg, index) => (<p key={index} className="mg-0">{msg}</p>))}
             </div>
         </div>
     );
