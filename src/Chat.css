@@ -1,12 +1,36 @@
-.messages, .users {
-    border: 1px red dotted;
+.outline {
+    border: 1px solid rgba(50,50,50,.5);
+}
+
+.height-100 {
+    height: 100%;
+}
+
+.messages {
+    background: rgb(0, 0, 0, .0);
+    color: black;
+    position: absolute;
+}
+
+.messages-container {
     overflow-y: scroll;
 }
 
-.f-90 {
-    height: 90vh;
+#message-input {
+    background: rgba(0, 0, 0, .1)
 }
 
-.f-10 {
-    height: 10vh;
+.chat-form {
+    background: rgb(0, 0, 0, .0);
+}
+
+.userlist {
+    background: rgb(0, 0, 0, .1);
+    color: black;
+}
+
+.imagedoge {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
 }

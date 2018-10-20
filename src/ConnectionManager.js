@@ -27,8 +27,10 @@ class ConnectionManager {
     receive(msg) {
         const message = JSON.parse(msg);
 
+        console.log('Received message', message.type);
+        
         if (message.type === 'chat') {
-            this.chat.appendMessage(message.data.userid, message.data.message);
+            this.chat.addMessage(message.data.userid, message.data.message);
         }
         else if (message.type === 'server_broadcast') {
             const users = [];
@@ -43,8 +45,9 @@ class ConnectionManager {
         else if (message.type === 'chat_history') {
             const messages = message.data.messages;
             messages.forEach(msg => {
-                this.chat.appendMessage(msg.userid, msg.message);
+                this.chat.addMessage(msg.userid, msg.message);
             });
+
         }
         else if (message.type === 'pong') {
             console.log('Ping pong successful.');

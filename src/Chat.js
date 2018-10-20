@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ConnectionManager from './ConnectionManager.js';
+import { Col, Form, FormGroup, Input } from 'reactstrap';
 import './Chat.css';
+import logo from './doge.png';
 
 class Chat extends Component {
 
@@ -43,10 +45,10 @@ class Chat extends Component {
         this.setState({ value: event.target.value });
     }
 
-    appendMessage(user, message) {
+    addMessage(user, message) {
         const messages = JSON.parse(JSON.stringify(this.state.messages));
 
-        messages.push(`${user}: ${message}`);
+        messages.push({ user, message });
         this.setState({ messages });
         this.scrollToBottom();
     }
@@ -63,37 +65,53 @@ class Chat extends Component {
     }
 
     render() {
-
-        const msgs = this.state.messages.map((msg, i) => <li key={i} className="list-group-item">{msg}</li>);
+        const messages = this.state.messages.map((msg, index) => {
+            const linebreak = index === this.state.messages.length - 1 || <hr></hr>;
+            return (
+                <div key={index}>
+                    <div className="media" >
+                        <img className="imagedoge" src={logo} alt="Doge"></img>
+                        <div className="media-body">
+                            <h5 className="mt-0">{msg.user}</h5>
+                            {msg.message}
+                        </div>
+                    </div>
+                    {linebreak}
+                </div>
+            );
+        });
         const activeUsers = this.state.users.map(user => <li key={user}>{user}</li>)
         return (
-            <div className="container-fluid f-90">
-                <div className="row f-90">
-                    <div 
-                        className="col-9 f-90 messages"
-                        ref={div => {
-                            this.messageList = div;
-                        }}
-                    >
-                        <ul className="list-group">
-                            {msgs}
-                        </ul>
-                    </div>
-                    <div className="col-3 f-90 users">Active Users:
-                        {activeUsers}
-                    </div>
-                </div>
-                <div className="col f-10">
-
-                    <div className="row">
-                        <form onSubmit={this.sendMessage}>
-                            <div className="input-group">
-                                <input type="text" placeholder="Message..." onChange={this.handleChange} className="form-control" value={this.state.value}/>
-                                <div className="input-group-append">
-                                    <button className="btn" type="submit" id="button-addon2">Send</button>
+            <div className="container-fluid h-100">
+                <div className="row h-100">
+                    <div className="col d-flex flex-column">
+                        <div className="row flex-fill">
+                            <div className="col messages-container" ref={div => {
+                                this.messageList = div;
+                            }}>
+                                <div className="messages">
+                                    {messages}
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <div className="row">
+                            <div className="col p-2 chat-form">
+                                <Form onSubmit={this.sendMessage}>
+                                    <FormGroup row>
+                                        <Col>
+                                            <Input id="message-input" placeholder="Message..." type="text" onChange={this.handleChange} value={this.state.value}></Input>
+                                        </Col>
+                                    </FormGroup>
+                                </Form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="col-sm userlist">
+                        Userlist:
+                        <ul>
+                            {activeUsers}                       
+                        </ul>
                     </div>
                 </div>
             </div>
