@@ -69,22 +69,25 @@ class Chat extends Component {
             const linebreak = index === this.state.messages.length - 1 || <hr></hr>;
             return (
                 <div key={index}>
-                    <div className="media" >
-                        <img className="imagedoge" src={logo} alt="Doge"></img>
-                        <div className="media-body">
-                            <h5 className="mt-0">{msg.user}</h5>
-                            {msg.message}
-                        </div>
-                    </div>
+                    <Media message={msg.message} user={msg.user}  mt="mt-0"/>
                     {linebreak}
                 </div>
             );
         });
-        const activeUsers = this.state.users.map(user => <li key={user}>{user}</li>)
+        const activeUsers = this.state.users.map(user => {
+            // <li key={user}>{user}</li>
+            return (<div className="media" >
+                        <img className="imagedoge image-small" src={logo} alt="Doge"></img>
+                        <div className="media-body">
+                            <h5 className="mt-2">{user}</h5>
+                        </div>
+                    </div>);
+        });
         return (
             <div className="container-fluid h-100">
                 <div className="row h-100">
-                    <div className="col d-flex flex-column">
+
+                    <div className="col-9 d-flex flex-column">
                         <div className="row flex-fill">
                             <div className="col messages-container" ref={div => {
                                 this.messageList = div;
@@ -107,17 +110,30 @@ class Chat extends Component {
                         </div>
                     </div>
                     
-                    <div className="col-sm userlist">
-                        Userlist:
-                        <ul>
+                    <div className="col userlist">
+                        Active users
+                        <ul className="list-unstyled">
                             {activeUsers}                       
                         </ul>
                     </div>
+
                 </div>
             </div>
         );
     }
 
+}
+
+function Media(props) {
+    return (
+        <div className="media" >
+            <img className="imagedoge" src={logo} alt="Doge"></img>
+            <div className="media-body">
+                <h5 className={props.mt}>{props.user}</h5>
+                {props.message}
+            </div>
+        </div>
+    );
 }
 
 export default Chat;
