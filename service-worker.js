@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/fred-im/precache-manifest.78e8e8a8cf303a11f9f643b4c23dd0a9.js"
+  "/fred-im/precache-manifest.1ce7033f2ce6599708c04a7494fbd016.js"
 );
 
 workbox.clientsClaim();
