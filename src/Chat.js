@@ -16,10 +16,18 @@ class Chat extends Component {
         this.send = this.send.bind(this);
     }
 
+    getServerUrl() {
+        if (window.location.hostname === 'localhost') {
+            return 'ws://localhost:9876';
+        }
+        else {
+            return 'wss://fred-im.herokuapp.com';
+        }
+    }
     componentDidMount() {
+        const url = this.getServerUrl();
         this.connectionManager = new ConnectionManager(this);
-        this.connectionManager.connect('wss://fred-im.herokuapp.com');
-        // this.connectionManager.connect('ws://localhost:9876');
+        this.connectionManager.connect(url);
         this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
     }
 
