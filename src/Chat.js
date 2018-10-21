@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ConnectionManager from './ConnectionManager.js';
-import { Col, Form, FormGroup, Input } from 'reactstrap';
+import { Media, Col, Form, FormGroup, Input } from 'reactstrap';
 import './Chat.css';
 import logo from './doge.png';
 
@@ -24,6 +24,7 @@ class Chat extends Component {
             return 'wss://fred-im.herokuapp.com';
         }
     }
+
     componentDidMount() {
         const url = this.getServerUrl();
         this.connectionManager = new ConnectionManager(this);
@@ -58,7 +59,6 @@ class Chat extends Component {
 
         const last = messages.pop();
 
-        console.log(last)
         if (last === undefined) {
             messages.push({ user, message: [message] });
         }
@@ -87,15 +87,22 @@ class Chat extends Component {
     }
 
     render() {
-        const messages = this.state.messages.map((msg, index) => {
-            const linebreak = index === this.state.messages.length - 1 || <hr></hr>;
+
+        let messages = this.state.messages.map((msg, index) => {
+            const combined = msg.message.join('\n');
             return (
-                <div key={index}>
-                    <Media message={msg.message} user={msg.user}  mt="mt-0"/>
-                    {linebreak}
-                </div>
+                <li className="media">
+                    <img src={logo} className="align-self-end imagedoge mr-3" alt="Avatar"></img>
+                    <div className="media-body linebreak">
+                        <h5>{msg.user}</h5>
+                        {combined}
+                    </div>
+                </li>
             );
         });
+        
+        messages = messages.concat(...messages.map((e,i) => [(<hr></hr>), e])).slice(1);
+
         const activeUsers = this.state.users.map((user, index) => {
             return (
                 <div className="media" key={index}>
@@ -112,12 +119,12 @@ class Chat extends Component {
 
                     <div className="col-9 d-flex flex-column">
                         <div className="row flex-fill">
-                            <div className="col messages-container" ref={div => {
+                            <div className="col messages-container mb-3" ref={div => {
                                 this.messageList = div;
                             }}>
-                                <div className="messages">
+                                <ul className="list-unstyled messages">
                                     {messages}
-                                </div>
+                                </ul>
                             </div>
                         </div>
                         <div className="row">
@@ -147,16 +154,16 @@ class Chat extends Component {
 
 }
 
-function Media(props) {
-    return (
-        <div className="media" >
-            <img className="imagedoge" src={logo} alt="Doge"></img>
-            <div className="media-body">
-                <h5 className={props.mt}>{props.user}</h5>
-                {props.message.map((msg, index) => (<p key={index} className="mg-0">{msg}</p>))}
-            </div>
-        </div>
-    );
-}
+// function Media(props) {
+//     return (
+//         <div className="media" >
+//             <img className="imagedoge" src={logo} alt="Doge"></img>
+//             <div className="media-body">
+//                 <h5 className={props.mt}>{props.user}</h5>
+//                 {props.message.map((msg, index) => (<p key={index} className="mg-0">{msg}</p>))}
+//             </div>
+//         </div>
+//     );
+// }
 
 export default Chat;
