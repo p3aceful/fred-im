@@ -27,29 +27,28 @@ class ConnectionManager {
     receive(msg) {
         const message = JSON.parse(msg);
 
-        console.log('Received message', message.type);
         
         if (message.type === 'chat') {
-            this.chat.addMessage(message.data.userid, message.data.message);
+
+            console.log('Received message', message);
+            this.chat.addMessage(message.data.userid, message.data.message, message.data.date);
         }
         else if (message.type === 'server_broadcast') {
-            const users = [];
-            users.push(message.data.peers.you);
-            message.data.peers.clients.forEach(client => {
-                if (client.id !== message.data.peers.you) {
-                    users.push(client.id);
-                }
-            });
+
+            console.log('Received message', message.type);
+            const users = new Set();
+            users.add(message.data.peers.you);
+            message.data.peers.clients.forEach(client => users.add(client.id));
             this.chat.updateUserList(users);
         }
         else if (message.type === 'chat_history') {
-            const messages = message.data.messages;
-            messages.forEach(msg => {
-                this.chat.addMessage(msg.userid, msg.message);
-            });
 
+            console.log('Received message', message.type);
+            const messages = message.data.messages;
+            this.chat.addHistory(messages);
         }
         else if (message.type === 'pong') {
+
             console.log('Ping pong successful.');
         }
        

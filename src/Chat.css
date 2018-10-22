@@ -10,6 +10,7 @@
     background: rgb(0, 0, 0, .0);
     color: black;
     position: absolute;
+    flex-grow: 1;
 }
 
 .messages-container {
