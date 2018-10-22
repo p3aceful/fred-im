@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ConnectionManager from './ConnectionManager.js';
-import { Col, Form, FormGroup, Input } from 'reactstrap';
 import { groupBy, deepClone, formatDate } from './util.js';
 import './Chat.css';
 import logo from './doge.png';
@@ -9,7 +8,7 @@ class Chat extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: '', messages: [], users: [] };
+        this.state = { value: '', messages: [], users: [], typers: [] };
         this.connectionManager = null;
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +29,7 @@ class Chat extends Component {
         const url = this.getServerUrl();
         this.connectionManager = new ConnectionManager(this);
         this.connectionManager.connect(url);
-        this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
+        this.pingTimeoutId = setTimeout(this.send, 30000, { type: 'ping' });
     }
 
     sendChatMessage(e) {
@@ -44,13 +43,38 @@ class Chat extends Component {
     }
 
     send(data) {
-
-        clearInterval(this.timeoutId);
+        clearInterval(this.typingTimeoutId);
+        clearInterval(this.pingTimeoutId);
+        this.connectionManager.send({ type: 'stopped_typing' });
         this.connectionManager.send(data);
-        this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
+        this.pingTimeoutId = setTimeout(this.send, 30000, { type: 'ping' });
     }
 
+    addCurrentTyper(userid) {
+        if (this.state.typers.filter(t => t === userid).length === 0) {
+            const users = [...this.state.typers, userid];
+            this.setState({ typers: users });
+        }
+    }
+
+    removeCurrentTyper(userid) {
+        const users = this.state.typers.filter(u => u !== userid);
+        this.setState({ typers: users });
+    }
+    
     handleChange(event) {
+
+        if (event.target.value.length > this.state.value.length) {
+            this.send({
+                type: 'started_typing',
+            });
+            this.typingTimeoutId = setTimeout(this.send, 10000, { type: 'stopped_typing' });
+        }
+
+        if (event.target.value === '') {
+            clearInterval(this.typingTimeoutId);
+            this.send( { type: 'stopped_typing'});
+        }
         this.setState({ value: event.target.value });
     }
 
@@ -91,29 +115,21 @@ class Chat extends Component {
 
         return (
             <div className="container-fluid h-100">
-                <div className="row h-100">
+                <div className="row h-100 no-gutters">
 
-                    <div className="col-9 d-flex flex-column">
-                        <div className="row flex-fill">
-                            <div className="col messages-container mb-3 d-flex flex-column" ref={div => {
-                                this.messageList = div;
-                            }}>
-                                <ul className="list-unstyled messages ">
-                                    {messages}
-                                </ul>
+                    <div className="col-9 d-flex flex-column left-col">
+                        <ul className="messages-container list-unstyled" ref={div => this.messageList = div}>
+                            {messages}
+                        </ul>
+                        
+                        <Typers typers={this.state.typers} />
+                        <form className="mr-3" onSubmit={this.sendChatMessage}>
+                            <div className="form-group row">
+                                <div className="col">
+                                    <input className="form-control" id="message-input" placeholder="Message..." type="text" onChange={this.handleChange} value={this.state.value} />
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col p-2 chat-form">
-                                <Form onSubmit={this.sendChatMessage}>
-                                    <FormGroup row>
-                                        <Col>
-                                            <Input id="message-input" placeholder="Message..." type="text" onChange={this.handleChange} value={this.state.value}></Input>
-                                        </Col>
-                                    </FormGroup>
-                                </Form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
 
                     <div className="col userlist">
@@ -125,6 +141,44 @@ class Chat extends Component {
 
                 </div>
             </div>
+            // <div className="container-fluid h-100">
+            //     <div className="row h-100">
+
+            //         <div className="col-9 d-flex flex-column">
+            //             <div className="row flex-fill f-flex flex-column">
+            //                 <div className="col messages-container mb-3 d-flex flex-column" ref={div => {
+            //                     this.messageList = div;
+            //                 }}>
+            //                     <ul className="list-unstyled messages ">
+            //                         {messages}
+            //                     </ul>
+            //                 </div>
+                            
+            //                 <p>{typers}</p>
+            //             </div>
+                        
+            //             <div className="row">
+            //                 <div className="col p-2 chat-form">
+            //                     <Form onSubmit={this.sendChatMessage}>
+            //                         <FormGroup row>
+            //                             <Col>
+            //                                 <Input id="message-input" placeholder="Message..." type="text" onChange={this.handleChange} value={this.state.value}></Input>
+            //                             </Col>
+            //                         </FormGroup>
+            //                     </Form>
+            //                 </div>
+            //             </div>
+            //         </div>
+
+            //         <div className="col userlist">
+            //             Active users
+            //             <ul className="list-unstyled">
+            //                 {activeUsers}
+            //             </ul>
+            //         </div>
+
+            //     </div>
+            // </div>
         );
     }
 }
@@ -152,6 +206,15 @@ class Message extends Component {
     }
 }
 
+function Typers(props) {
+    const typers = [...props.typers];
+    if (typers.length === 0) {
+        return <p></p>;
+    }
+    const end = typers.length > 1 ? ' are ' : ' is ';
+
+    return <p>{typers.join(', ') + end + 'typing.'}</p>;
+}
 function UserlistElement(props) {
     return (
         <li key={props.user} className="media">

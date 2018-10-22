@@ -42,6 +42,6 @@
     height: 32px;
 }
 
-.linebreak {
-    white-space: pre-line;
+.left-col {
+    max-height: 100%;
 }

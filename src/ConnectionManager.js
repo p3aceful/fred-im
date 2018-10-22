@@ -27,7 +27,6 @@ class ConnectionManager {
     receive(msg) {
         const message = JSON.parse(msg);
 
-        
         if (message.type === 'chat') {
 
             console.log('Received message', message);
@@ -46,6 +45,12 @@ class ConnectionManager {
             console.log('Received message', message.type);
             const messages = message.data.messages;
             this.chat.addHistory(messages);
+        }
+        else if (message.type === 'user_started_typing') {
+            this.chat.addCurrentTyper(message.data.userid);
+        }
+        else if (message.type === 'user_stopped_typing') {
+            this.chat.removeCurrentTyper(message.data.userid)
         }
         else if (message.type === 'pong') {
 
