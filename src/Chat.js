@@ -31,7 +31,6 @@ class Chat extends Component {
         this.connectionManager = new ConnectionManager(this);
         this.connectionManager.connect(url);
         this.timeoutId = setTimeout(this.send, 30000, { type: 'ping' });
-        console.log('COMPONENT MOUNTED WAHOO');
     }
 
     sendChatMessage(e) {
