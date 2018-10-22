@@ -37,12 +37,24 @@ export function formatDate(date) {
     const before = new Date(date);
     const now = new Date();
     const diff = now - before;
-    const hrs = ((diff / 1000) / 60) / 60;
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    if (hrs > 24) {
-        return `${days[before.getDay()]}. ${before.getDate()}.${before.getMonth()}.${before.getFullYear()} - ${before.getHours()}:${before.getMinutes()}:${before.getSeconds()}`
+    let [day, dt, month, yr, hr, min, sec] 
+        = [
+            before.getDay(), 
+            before.getDate(),
+            before.getMonth(),
+            before.getFullYear(),
+            before.getHours(),
+            before.getMinutes(),
+            before.getSeconds()
+        ];
+    if (diff > (24 - hr) * 60 * 60 * 1000) {
+        return `${days[day]} at ${hr}:${min}:${sec} - ${dt}.${month}.${yr}`;
     }
     else {
-        return `${before.getHours()}:${before.getMinutes()}`
+        if (min < 10) {
+            min = ''.concat('0', min);
+        }
+        return `${hr}:${min}`;
     }
 }
