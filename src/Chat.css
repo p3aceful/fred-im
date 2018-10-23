@@ -1,24 +1,9 @@
-.outline {
-    border: 1px solid rgba(50,50,50,.5);
-}
-
-.height-100 {
-    height: 100%;
-}
-
-.messages {
-    background: rgb(0, 0, 0, .0);
-    color: black;
-    position: absolute;
-    flex-grow: 1;
-}
-
 .messages-container {
     overflow-y: scroll;
 }
 
 #message-input {
-    background: rgba(0, 0, 0, .1)
+    background: rgba(0, 0, 0, .1);
 }
 
 .chat-form {
@@ -44,4 +29,12 @@
 
 .left-col {
     max-height: 100%;
+}
+
+.wrap {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.no-margin {
+    margin-top: 0;
 }

@@ -108,7 +108,7 @@ class Chat extends Component {
 
         let messages = groupedMessages.map((msgs) => <Message msgs={msgs} key={msgs[0].date} />);
 
-        messages = messages.map((m, i) => [m, <hr key={'hr' + i}></hr>]).flat();
+        messages = messages.map((m, i) => [m, <hr className="no-margin" key={'hr' + i}></hr>]).flat();
         messages = messages.slice(0, -1);
         const activeUsers = [...this.state.users]
             .map(user => <UserlistElement user={user} key={user} />);
@@ -119,7 +119,9 @@ class Chat extends Component {
 
                     <div className="col-9 d-flex flex-column left-col">
                         <ul className="messages-container list-unstyled" ref={div => this.messageList = div}>
-                            {messages}
+                            <div>
+                                {messages}
+                            </div>
                         </ul>
                         
                         <Typers typers={this.state.typers} />
@@ -141,44 +143,6 @@ class Chat extends Component {
 
                 </div>
             </div>
-            // <div className="container-fluid h-100">
-            //     <div className="row h-100">
-
-            //         <div className="col-9 d-flex flex-column">
-            //             <div className="row flex-fill f-flex flex-column">
-            //                 <div className="col messages-container mb-3 d-flex flex-column" ref={div => {
-            //                     this.messageList = div;
-            //                 }}>
-            //                     <ul className="list-unstyled messages ">
-            //                         {messages}
-            //                     </ul>
-            //                 </div>
-                            
-            //                 <p>{typers}</p>
-            //             </div>
-                        
-            //             <div className="row">
-            //                 <div className="col p-2 chat-form">
-            //                     <Form onSubmit={this.sendChatMessage}>
-            //                         <FormGroup row>
-            //                             <Col>
-            //                                 <Input id="message-input" placeholder="Message..." type="text" onChange={this.handleChange} value={this.state.value}></Input>
-            //                             </Col>
-            //                         </FormGroup>
-            //                     </Form>
-            //                 </div>
-            //             </div>
-            //         </div>
-
-            //         <div className="col userlist">
-            //             Active users
-            //             <ul className="list-unstyled">
-            //                 {activeUsers}
-            //             </ul>
-            //         </div>
-
-            //     </div>
-            // </div>
         );
     }
 }
@@ -188,14 +152,14 @@ class Message extends Component {
     render() {
         const { userid, date } = this.props.msgs[0];
         return (
-            <li className="media" key={date}>
+            <li className="media message" key={date}>
                 <img src={logo} className="align-self-end imagedoge mr-3 mb-4" alt="avatar.png"></img>
                 <div className="media-body d-flex flex-column">
                     <h5>{userid}</h5>
                     {this.props.msgs.map((msg, i) => {
                         return (
-                            <div key={`${userid}-${i}`}>
-                                <div> {msg.message} </div> 
+                            <div className="wrap" key={`${userid}-${i}`}>
+                                {msg.message}
                             </div>
                         );
                     })}
