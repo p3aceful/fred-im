@@ -1,7 +1,7 @@
 {
-  "main.css": "/fred-im/static/css/main.caf06277.chunk.css",
-  "main.js": "/fred-im/static/js/main.0d57ab26.chunk.js",
-  "main.js.map": "/fred-im/static/js/main.0d57ab26.chunk.js.map",
+  "main.css": "/fred-im/static/css/main.33b5524e.chunk.css",
+  "main.js": "/fred-im/static/js/main.1a0a5810.chunk.js",
+  "main.js.map": "/fred-im/static/js/main.1a0a5810.chunk.js.map",
   "static/css/1.959bdcef.chunk.css": "/fred-im/static/css/1.959bdcef.chunk.css",
   "static/js/1.f5920f40.chunk.js": "/fred-im/static/js/1.f5920f40.chunk.js",
   "static/js/1.f5920f40.chunk.js.map": "/fred-im/static/js/1.f5920f40.chunk.js.map",
@@ -9,8 +9,8 @@
   "runtime~main.js.map": "/fred-im/static/js/runtime~main.318babfa.js.map",
   "static/css/1.959bdcef.chunk.css.map": "/fred-im/static/css/1.959bdcef.chunk.css.map",
   "static/media/doge.png": "/fred-im/static/media/doge.69ae4e8f.png",
-  "static/css/main.caf06277.chunk.css.map": "/fred-im/static/css/main.caf06277.chunk.css.map",
+  "static/css/main.33b5524e.chunk.css.map": "/fred-im/static/css/main.33b5524e.chunk.css.map",
   "index.html": "/fred-im/index.html",
-  "precache-manifest.fab1a15a5025a6bc9d350c791cfc532f.js": "/fred-im/precache-manifest.fab1a15a5025a6bc9d350c791cfc532f.js",
+  "precache-manifest.9e608ddb8538f0ec7f85bd737d507592.js": "/fred-im/precache-manifest.9e608ddb8538f0ec7f85bd737d507592.js",
   "service-worker.js": "/fred-im/service-worker.js"
 }
