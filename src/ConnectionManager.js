@@ -1,6 +1,6 @@
 class ConnectionManager {
-    constructor(chat) {
-        this.chat = chat;
+    constructor(uiHandler) {
+        this.uiManager = uiHandler;
         this.conn = null;
         this.id = null;
         this.peers = new Map();
@@ -29,34 +29,32 @@ class ConnectionManager {
 
         if (message.type === 'chat') {
 
-            console.log('Received message', message);
-            this.chat.addMessage(message.data.userid, message.data.message, message.data.date);
-        }
-        else if (message.type === 'server_broadcast') {
-
-            console.log('Received message', message.type);
-            const users = new Set();
-            users.add(message.data.peers.you);
-            message.data.peers.clients.forEach(client => users.add(client.id));
-            this.chat.updateUserList(users);
+            const { userid: u, message: m, date: d } = message.data;
+            console.log('Received a new message from', u);
+            this.uiManager.receiveMessage(u, m, d);
         }
         else if (message.type === 'chat_history') {
 
-            console.log('Received message', message.type);
+            console.log('Received a chat log of', message.data.messages.length, 'messages.');
             const messages = message.data.messages;
-            this.chat.addHistory(messages);
+            this.uiManager.receiveChatHistory(messages);
         }
-        else if (message.type === 'user_started_typing') {
-            this.chat.addCurrentTyper(message.data.userid);
-        }
-        else if (message.type === 'user_stopped_typing') {
-            this.chat.removeCurrentTyper(message.data.userid)
+        else if (message.type === 'server_broadcast') {
+            const me = message.data.peers.you;
+            const others = message.data.peers.clients;
+            this.uiManager.receiveActiveUsers([me, ...others.map(o => o.id)]);
         }
         else if (message.type === 'pong') {
-
             console.log('Ping pong successful.');
         }
-       
+        else if (message.type === 'user_started_typing') {
+            console.log('A user started typing');
+            this.uiManager.addToTypers(message.data.userid);
+        }
+        else if (message.type === 'user_stopped_typing') {
+            console.log('A user stopped typing');
+            this.uiManager.removeFromTypers(message.data.userid);
+        }
     }
 
     send(data) {

@@ -1,40 +1,38 @@
-.messages-container {
-    overflow-y: scroll;
+.col-left * .avatar {
+    width: 64px;
+    height: 64px;
 }
 
-#message-input {
-    background: rgba(0, 0, 0, .1);
+.col-right * .avatar {
+    width: 64px;
+    height: 64px;
 }
 
-.chat-form {
-    background: rgb(0, 0, 0, .0);
+.col-left {
+    /* background: rgba(0,255,0,.5); */
+    min-height: 0;
 }
 
 .userlist {
     background: rgb(0, 0, 0, .1);
-    color: black;
-}
-
-.imagedoge {
-    border-radius: 50%;
-    width: 64px;
-    height: 64px;
-    /* border: 1px solid rgba(0,0,0,.5); */
-}
-
-.image-small {
-    width: 32px;
-    height: 32px;
-}
-
-.left-col {
-    max-height: 100%;
 }
 
 .wrap {
+    overflow-wrap: break-word;
     word-wrap: break-word;
-    word-break: break-all;
+    hyphens: auto;
 }
-.no-margin {
-    margin-top: 0;
+
+.content-wrapper {
+    min-height: 0;
+}
+
+.overflow-container {
+    flex: 1;
+    overflow: auto;
+}
+
+
+@media (min-width: 576px) {
+    
 }
