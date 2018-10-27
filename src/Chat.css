@@ -1,37 +1,28 @@
-.col-left * .avatar {
+
+.avatar {
     width: 64px;
     height: 64px;
-}
-
-.col-right * .avatar {
-    width: 64px;
-    height: 64px;
-}
-
-.col-left {
-    /* background: rgba(0,255,0,.5); */
-    min-height: 0;
 }
 
 .userlist {
     background: rgb(0, 0, 0, .1);
 }
 
-.wrap {
+.dont-break-out {
+   word-wrap: break-word;
+}
+
+.homemade-media {
+
+}
+
+.homemade-media-body {
+
+}
+
+.ow-wrap-break-word {
     overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
 }
-
-.content-wrapper {
-    min-height: 0;
-}
-
-.overflow-container {
-    flex: 1;
-    overflow: auto;
-}
-
 
 @media (min-width: 576px) {
     

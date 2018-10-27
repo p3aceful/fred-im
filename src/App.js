@@ -54,9 +54,14 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App d-flex flex-column">
+			<div className="App d-flex flex-column" style={{ height: '100vh' }}>
 				<Header users={this.state.users} />
-				<Chat users={this.state.users} typers={this.state.typers} messages={this.state.messages} send={this.send}/>
+				<Chat 
+					users={this.state.users}
+					typers={this.state.typers}
+					messages={this.state.messages}
+					send={this.send}
+				/>
 			</div>
 		);
 	}

@@ -23,12 +23,12 @@ export default class Header extends Component {
     }
     render() {
         return (
-            <Navbar className="bg-dark" id="my-header" color="light" dark fixed="top">
+            <Navbar className="bg-dark flex-shrink-0" color="light" dark>
                 <NavbarBrand className="mr-auto text-light">active users</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} className="mr-2" />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <hr />
-                    <div>
+                    <div className="text-light">
                         {
                             this.props.users.map((u, i) => <p key={'header-user-' + i}>{u}</p>)
                         }

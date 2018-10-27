@@ -4,8 +4,9 @@ import {
     Container,
     Row,
     Col,
-    ListGroupItem,
-    ListGroup,
+    Form,
+    FormGroup,
+    Input
 } from 'reactstrap';
 import Message from './components/Message.js';
 import './Chat.css';
@@ -66,52 +67,48 @@ class Chat extends Component {
     }
 
     render() {
-        const groupedMessages = groupBy(this.props.messages, 'userid');
-
-        let messages = groupedMessages.map((msgs, i) => <Message msgs={msgs} key={'msg-group-'+ i} />);
-
-        messages = messages.map((m, i) => [m, <hr key={'hr' + i}></hr>]).flat();
-        messages = messages.slice(0, -1);
-        const activeUsers = this.props.users
-            .map((user, i) => <p className="ml-2 font-weight-light" key={'lgitem-'+ i}>- {user}</p>);
 
         return (
-            <Container fluid={true} className="h-100">
-                <Row className=" h-100">
-                    <Col sm="8" className="col-left mh-100 bg-light">
-                        <div className="d-flex flex-column h-100">
-                            <div className="d-flex flex-column flex-grow-1 mh-100">
-                                <div className="overflow-container mh-100">
-                                    <MessageList messages={messages} />
-                                </div>
-                                <p className="flex-shrink-0">
-                                    <Typers typers={this.props.typers}/>
-                                </p>
-                                <form className="flex-shrink-0" onSubmit={this.sendChatMessage}>
-                                    <div className="form-group row">
-                                        <div className="col">
-                                            <input className="form-control bg-dark text-light" id="message-input" placeholder="Message..." type="text" onChange={this.handleChange} value={this.state.value} />
-                                        </div>
-                                    </div>
-                                </form>
+            <Container fluid={true} style={{ minHeight: '0' }} className="d-flex flex-column flex-grow-1">
+                <Row className="flex-grow-1" style={{ overflow: 'auto' }}>
+                    <Col className="flex-grow-1">
 
-                            </div>
-                        </div>
+                        <MessageContainer messages={this.props.messages} />
+
                     </Col>
-                    <Col sm="4" className="col-right bg-dark text-light d-none d-sm-block">
-                        <p className="mt-3 ml-2">Active yousers</p>
-                        {activeUsers}
+                </Row>
+                <Row className="flex-shrink-0">
+                    <Col className="" style={{ height: '2em' }}>
+                        <Typers typers={this.props.typers} />
+                    </Col>
+                </Row>
+                <Row className="flex-shrink-0">
+                    <Col className="">
+                        <Form onSubmit={this.sendChatMessage}>
+                            <FormGroup>
+                                <Input
+                                    className=""
+                                    type="text"
+                                    name="text"
+                                    id="message-input"
+                                    placeholder="Message..."
+                                    onChange={this.handleChange}
+                                    value={this.state.value}
+                                    autoComplete="off"
+                                />
+                            </FormGroup>
+                        </Form>
                     </Col>
                 </Row>
             </Container>
         );
     }
 }
-
-class MessageList extends Component {
+class MessageContainer extends Component {
 
     constructor(props) {
         super(props);
+
         this.scrollToBottom = this.scrollToBottom.bind(this);
     }
 
@@ -124,17 +121,25 @@ class MessageList extends Component {
     }
 
     scrollToBottom() {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth"});
+        this.messagesEnd.scrollIntoView();
     }
 
     render() {
+        const groupedMessages = groupBy(this.props.messages, 'userid');
+
+        let messages = groupedMessages.map((msgs, i) => <Message msgs={msgs} key={'msg-group-' + i} />);
+
+        messages = messages.map((m, i) => [m, <hr key={'hr' + i}></hr>]).flat();
+        messages = messages.slice(0, -1);
+
         return (
-            <div className="overflow-content mr-3" ref={div => this.messageList = div}>
-                <div>{this.props.messages}</div>
-                <div style={{float: "left", clear: "both"}}
-                    ref={(el) => {this.messagesEnd = el; }}>
-                </div>
-            </div>
+            <ul className="list-unstyled">
+                {messages}
+                <li
+                    ref={(el) => { this.messagesEnd = el }}
+                >
+                </li>
+            </ul>
         );
     }
 }
