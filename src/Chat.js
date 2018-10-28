@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import Message from './components/Message.js';
 import './Chat.css';
+import './Loader.css';
 
 class Chat extends Component {
 
@@ -74,7 +75,18 @@ class Chat extends Component {
                     <Col className="flex-grow-1">
 
                         <MessageContainer messages={this.props.messages} />
-
+        
+                    </Col>
+                </Row>
+                <Row className="flex-grow-1 d-none" style={{ overflow: 'auto' }}>
+                    <Col className="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+                        <div className="d-flex flex-column align-items-center">
+                            <div class="spinner">
+                                <div class="double-bounce1"></div>
+                                <div class="double-bounce2"></div>
+                            </div>
+                            <p style={{}}>Please wait...</p>
+                        </div>
                     </Col>
                 </Row>
                 <Row className="flex-shrink-0">
