@@ -4,9 +4,6 @@ import {
     Container,
     Row,
     Col,
-    Form,
-    FormGroup,
-    Input
 } from 'reactstrap';
 import Message from './components/Message.js';
 import './Chat.css';
@@ -68,53 +65,73 @@ class Chat extends Component {
     }
 
     render() {
-
         return (
             <Container fluid={true} style={{ minHeight: '0' }} className="d-flex flex-column flex-grow-1">
-                <Row className="flex-grow-1" style={{ overflow: 'auto' }}>
-                    <Col className="flex-grow-1">
+                {
+                    this.props.isOpen &&
+                    (
+                        <Row className="flex-grow-1" style={{ overflow: 'auto' }}>
+                            <Col className="flex-grow-1">
 
-                        <MessageContainer messages={this.props.messages} />
-        
-                    </Col>
-                </Row>
-                <Row className="flex-grow-1 d-none" style={{ overflow: 'auto' }}>
-                    <Col className="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-                        <div className="d-flex flex-column align-items-center">
-                            <div class="spinner">
-                                <div class="double-bounce1"></div>
-                                <div class="double-bounce2"></div>
-                            </div>
-                            <p style={{}}>Please wait...</p>
-                        </div>
-                    </Col>
-                </Row>
+                                <MessageContainer messages={this.props.messages} />
+
+                            </Col>
+                        </Row>
+                    )
+                }
+                {
+                    !this.props.isOpen &&
+                    (
+                        <Row className="flex-grow-1" style={{ overflow: 'auto' }}>
+                            <Col className="flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+                                <div className="d-flex flex-column align-items-center">
+                                    <div className="spinner">
+                                        <div className="double-bounce1"></div>
+                                        <div className="double-bounce2"></div>
+                                    </div>
+                                    <p style={{}}>Connecting...</p>
+                                </div>
+                            </Col>
+                        </Row>
+                    )
+                }
+
                 <Row className="flex-shrink-0">
                     <Col className="" style={{ height: '2em' }}>
                         <Typers typers={this.props.typers} />
                     </Col>
                 </Row>
                 <Row className="flex-shrink-0">
-                    <Col className="">
-                        <Form onSubmit={this.sendChatMessage}>
-                            <FormGroup>
-                                <Input
-                                    className=""
-                                    type="text"
-                                    name="text"
-                                    id="message-input"
-                                    placeholder="Message..."
-                                    onChange={this.handleChange}
-                                    value={this.state.value}
+                    <Col>
+                        <form onSubmit={this.sendChatMessage} disabled={!this.props.isOpen}>
+                            <div className="input-group mb-3">
+                                <input
                                     autoComplete="off"
+                                    disabled={!this.props.isOpen}
+                                    value={this.state.value}
+                                    onChange={this.handleChange}
+                                    placeholder="Message..."
+                                    type="text"
+                                    className="form-control"
+                                    required
                                 />
-                            </FormGroup>
-                        </Form>
+                                <div className="input-group-append">
+                                    <button 
+                                        className="input-group-text"
+                                        type="submit"
+                                        disabled={!this.props.isOpen}
+                                    >
+                                        Send
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </Col>
                 </Row>
             </Container>
         );
     }
+
 }
 class MessageContainer extends Component {
 

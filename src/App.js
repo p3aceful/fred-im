@@ -9,17 +9,24 @@ class App extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { messages: [], users: [], typers: [] };
+		this.state = { messages: [], users: [], typers: [], isOpen: false };
 		this.connectionManager = null;
 
 		this.send = this.send.bind(this);
 	}
 
+	addToTypers(userid) {
+		this.setState(prev => ({
+			typers: [...prev.typers, userid]
+		}));
+	}
+
 	componentDidMount() {
 		const url = this.getServerUrl();
         this.connectionManager = new ConnectionManager(this);
-        this.connectionManager.connect(url);
-        this.pingTimeoutId = setTimeout(this.send, 30000, { type: 'ping' });
+		// this.connectionManager.connect(url);
+		setTimeout(this.connectionManager.connect, 1000, url); // Fake delay
+        // this.pingTimeoutId = setTimeout(this.send, 30000, { type: 'ping' });
 	}
 
 	removeFromTypers(userid) {
@@ -61,6 +68,7 @@ class App extends Component {
 					typers={this.state.typers}
 					messages={this.state.messages}
 					send={this.send}
+					isOpen={this.state.isOpen}
 				/>
 			</div>
 		);
@@ -72,9 +80,9 @@ class App extends Component {
 		this.connectionManager.send(data);
 	}
 
-	addToTypers(userid) {
-		this.setState(prev => ({
-			typers: [...prev.typers, userid]
+	toggleOpenState() {
+		this.setState(prevState => ({
+			isOpen: !prevState.isOpen
 		}));
 	}
 }

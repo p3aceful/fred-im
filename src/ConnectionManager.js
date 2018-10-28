@@ -6,13 +6,15 @@ class ConnectionManager {
         this.peers = new Map();
 
         this.send = this.send.bind(this);
+        this.connect = this.connect.bind(this);
     }
 
     connect(address) {
         this.conn = new WebSocket(address);
 
         this.conn.addEventListener('open', () => {
-            console.log('Connection established!')
+            console.log('Connection established!');
+            this.uiManager.toggleOpenState();
         });
 
         this.conn.addEventListener('message', event => {
