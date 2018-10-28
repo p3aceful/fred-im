@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { formatDate } from '../util.js';
-import { Media } from 'reactstrap';
 import logo from '../doge.png';
 
 export default class Message extends Component {
@@ -21,32 +20,6 @@ export default class Message extends Component {
                     </ul>
                 </div>
             </li>
-            // <Media className="">
-            //     <Media left bottom>
-            //         <Media object className="avatar mr-2 rounded-circle" src={logo} alt="avatar" />
-            //     </Media>
-            //     <Media body className="">
-            //         <Media heading>
-            //             {userid}
-            //         </Media>
-            //         {
-            //             this.props.msgs.map((msg, i) => {
-            //                 return (
-            //                     <p 
-            //                         style={{}} 
-            //                         className="" 
-            //                         key={msg.date}
-            //                     >
-            //                         {msg.message}
-            //                     </p>
-            //                 );
-            //             })
-            //         }
-            //         <div className="align-self-end text-muted">
-            //             {formatDate(this.props.msgs[this.props.msgs.length - 1].date)}
-            //         </div>
-            //     </Media>
-            // </Media>
         );
     }
 }
