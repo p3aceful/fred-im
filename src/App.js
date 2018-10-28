@@ -24,9 +24,9 @@ class App extends Component {
 	componentDidMount() {
 		const url = this.getServerUrl();
         this.connectionManager = new ConnectionManager(this);
-		// this.connectionManager.connect(url);
-		setTimeout(this.connectionManager.connect, 1000, url); // Fake delay
-        // this.pingTimeoutId = setTimeout(this.send, 30000, { type: 'ping' });
+		this.connectionManager.connect(url);
+		// setTimeout(this.connectionManager.connect, 1000, url); // Fake delay
+        this.pingTimeoutId = setTimeout(this.send, 30000, { type: 'ping' });
 	}
 
 	removeFromTypers(userid) {
