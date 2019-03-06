@@ -10,6 +10,10 @@ export default class Events {
         });
     }
 
+    unsubscribe() {
+        this._listeners = new Set();
+    }
+    
     emit(name, ...data) {
         this._listeners.forEach(listener => {
             if (listener.name === name) {

@@ -16,8 +16,16 @@ export default class Connection {
         });
     }
 
+    close() {
+        this.connection.close();
+    }
+
     send(data) {
         const message = JSON.stringify(data);
         this.connection.send(message);
+    }
+
+    isOpen() {
+        return this.connection.readyState === WebSocket.OPEN;
     }
 }
